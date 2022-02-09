@@ -1,6 +1,17 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Header from "./components/Header";
+import ApartmentIndex from "./pages/ApartmentIndex";
+import Home from "./pages/Home";
+import apartments from "./mockApartments.js";
 
-class App extends Component {
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      apartments: apartments,
+    };
+  }
   render() {
     const {
       logged_in,
@@ -10,20 +21,16 @@ class App extends Component {
       sign_out_route,
     } = this.props;
     return (
-      <>
-        {logged_in && (
-          <div>
-            <a href={sign_out_route}>Sign Out</a>
-          </div>
-        )}
-        {!logged_in && (
-          <div>
-            <a href={sign_in_route}>Sign In</a>
-          </div>
-        )}
-      </>
+      <Router>
+        <Header {...this.props} />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route
+            path="/apartmentindex"
+            render={() => <ApartmentIndex apartments={this.state.apartments} />}
+          />
+        </Switch>
+      </Router>
     );
   }
 }
-
-export default App;
