@@ -193,3 +193,49 @@ Also tried using front end libraries for the first time to see if I like it, rea
 ```
 
 ### Unprotected Show
+
+```javascript
+<Route
+  path="/apartmentshow/:id"
+  render={(props) => {
+    let id = +props.match.params.id;
+    let apartment = this.state.apartments.find(
+      (apartment) => apartment.id === id
+    );
+    return <ApartmentShow apartment={apartment} />;
+  }}
+/>
+```
+
+### Login and Logout
+
+#### Fetch to database
+
+```javascript
+// App.js
+constructor(props) {
+  super(props);
+  this.state = {
+    apartments: [],
+  };
+}
+
+componentDidMount() {
+  this.readApartment();
+}
+
+readApartment = () => {
+  fetch("/apartments")
+    .then((response) => response.json())
+    .then((apartmentsArray) => this.setState({ apartments: apartmentsArray }))
+    .catch((errors) => console.log("Apartment read errors:", errors));
+};
+```
+
+```ruby
+# apartments_controller.rb
+def index
+  apartments = Apartment.all
+  render json: apartments
+end
+```

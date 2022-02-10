@@ -45,6 +45,11 @@ export default class Example extends React.Component {
                 {!logged_in && (
                   <NavLink href={sign_in_route}>Sign In/Register</NavLink>
                 )}
+                {logged_in && (
+                  <NavLink href={sign_out_route}>My Listings</NavLink> // placeholder href
+                )}
+              </NavItem>
+              <NavItem>
                 {logged_in && <NavLink href={sign_out_route}>Sign Out</NavLink>}
               </NavItem>
             </Nav>
