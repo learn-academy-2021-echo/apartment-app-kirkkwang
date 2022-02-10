@@ -7,7 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-## WORK IN PROGRESS
 users = [
   {
     email:'kbeasley@123.com',
@@ -56,8 +55,24 @@ users = [
   }
 ]
 
-users.each do |each_user|
-  User.new
-  User.create each_user
-  puts "Creating user #{each_user['email']}"
+users.each do |user|
+  User.create(
+    email: user[:email],
+    password: user[:password]
+  )
+  last_user = User.last
+  user[:apartments].each do |apartment|
+    last_user.apartments.create(
+      street: apartment[:street],
+      city: apartment[:city],
+      state: apartment[:state],
+      manager_name: apartment[:manager_name],
+      manager_email: apartment[:manager_email],
+      monthly_rent: apartment[:monthly_rent],
+      number_of_bedrooms: apartment[:number_of_bedrooms],
+      number_of_bathrooms: apartment[:number_of_bathrooms],
+      allow_pets: apartment[:allow_pets]
+    )
+  end
+  puts "Creating user #{user}"
 end
