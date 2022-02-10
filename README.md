@@ -191,3 +191,5 @@ Also tried using front end libraries for the first time to see if I like it, rea
   </Navbar>
 </nav>
 ```
+
+### Unprotected Show

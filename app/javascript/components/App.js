@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import ApartmentIndex from "./pages/ApartmentIndex";
+import ApartmentShow from "./pages/ApartmentShow";
 import Home from "./pages/Home";
 import users from "./mockUsers.js";
 import { Nav, Navbar, NavItem } from "reactstrap";
@@ -27,6 +28,18 @@ export default class App extends Component {
         <Header {...this.props} />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route
+            path="/apartmentshow/:id"
+            render={(props) => {
+              let id = +props.match.params.id;
+              let apartment = this.state.users
+                .map((user) =>
+                  user.apartments.find((apartment) => apartment.id === id)
+                )
+                .filter((place) => place !== undefined)[0];
+              return <ApartmentShow apartment={apartment} />;
+            }}
+          />
           <Route
             path="/apartmentindex"
             render={() => <ApartmentIndex users={this.state.users} />}
