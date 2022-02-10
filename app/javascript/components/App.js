@@ -3,13 +3,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import ApartmentIndex from "./pages/ApartmentIndex";
 import Home from "./pages/Home";
-import apartments from "./mockApartments.js";
+import users from "./mockUsers.js";
+import { Nav, Navbar, NavItem } from "reactstrap";
+import { NavLink } from "react-router-dom";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apartments: apartments,
+      users: users,
     };
   }
   render() {
@@ -27,7 +29,7 @@ export default class App extends Component {
           <Route exact path="/" component={Home} />
           <Route
             path="/apartmentindex"
-            render={() => <ApartmentIndex apartments={this.state.apartments} />}
+            render={() => <ApartmentIndex users={this.state.users} />}
           />
         </Switch>
       </Router>

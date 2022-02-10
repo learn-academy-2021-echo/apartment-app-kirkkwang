@@ -100,3 +100,94 @@ end
 ```shell
 $ rails db:migrate
 ```
+
+Generated some migration files because I tried changing the data type up but didn't do anything different, I wanted change how the values looked in rails console `number_of_bathrooms: 0.15e1` to `number_of_bathrooms: 1.5` but maybe that's just a rails console thing..
+
+### Unprotected Index
+
+Adjusted my mock data to incorporate the user to hopefully prep for database read. Since an apartment `belongs_to` a user, it cannot exit without the user.
+
+```javascript
+{
+  id: 1,
+  email: "kbeasley@123.com",
+  password: "valid_password",
+  apartments: [
+    {
+      id: 1,
+      street: "3742 Hamill Avenue",
+      city: "San Diego",
+      state: "CA",
+      manager_name: "Kira Beasley",
+      manager_email: "kbeasley@123.com",
+      monthly_rent: 1850,
+      number_of_bedrooms: 2,
+      number_of_bathrooms: 1.5,
+      allow_pets: true,
+      user_id: 1,
+    },
+  ],
+},
+```
+
+```javascript
+// `users` is deconstructed from `this.props.users`
+// ApartmentIndex.js
+<div className="Index">
+  {users.map((user) =>
+    user.apartments.map((apartment) => {
+      return (
+        <NavLink
+          to={`/apartmentshow/${apartment.id}`}
+          key={apartment.id}
+          style={{ textDecoration: "none" }}
+        >
+          <div className="Apartment Info">
+            <ul>
+              <li>Street: {apartment.street}</li>
+              <li>City: {apartment.city}</li>
+              <li>State: {apartment.state}</li>
+              <li>Manager Name: {apartment.manager_name}</li>
+              <li>Manager Email: {apartment.manager_email}</li>
+              <li>Monthly Rent: {apartment.monthly_rent}</li>
+              <li>Bedrooms: {apartment.number_of_bedrooms}</li>
+              <li>Bathrooms: {apartment.number_of_bathrooms}</li>
+              <li>Pets: {apartment.allow_pets ? "Yes" : "No"}</li>
+              <li>User ID: {apartment.user_id}</li>
+            </ul>
+          </div>
+        </NavLink>
+      );
+    })
+  )}
+</div>
+```
+
+Also tried using front end libraries for the first time to see if I like it, reactstrap in this case.
+
+```javascript
+// all components were import at the top as well as a `this.toggle.bind(this)` that I'm not certain how it works but I think it's a prop from the original component or something like that
+
+// incorporated the sign_in_route and sign_out_route into the NavLink
+
+// Header.js
+<nav>
+  <Navbar color="light" light expand="md">
+    <NavbarBrand href="/">Apartment App</NavbarBrand>
+    <NavbarToggler onClick={this.toggle} />
+    <Collapse isOpen={this.state.isOpen} navbar>
+      <Nav className="ml-auto" navbar>
+        <NavItem>
+          <NavLink href="/apartmentindex">Listings</NavLink>
+        </NavItem>
+        <NavItem>
+          {!logged_in && (
+            <NavLink href={sign_in_route}>Sign In/Register</NavLink>
+          )}
+          {logged_in && <NavLink href={sign_out_route}>Sign Out</NavLink>}
+        </NavItem>
+      </Nav>
+    </Collapse>
+  </Navbar>
+</nav>
+```
