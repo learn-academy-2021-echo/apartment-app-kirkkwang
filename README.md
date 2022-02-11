@@ -239,3 +239,5 @@ def index
   render json: apartments
 end
 ```
+
+### Protected Index

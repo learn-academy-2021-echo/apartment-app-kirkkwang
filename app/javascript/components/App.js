@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import ApartmentIndex from "./pages/ApartmentIndex";
+import ApartmentProtectedIndex from "./pages/ApartmentProtectedIndex";
 import ApartmentShow from "./pages/ApartmentShow";
 import Home from "./pages/Home";
 
@@ -76,6 +77,19 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
+            path="/apartmentindex"
+            render={() => <ApartmentIndex apartments={this.state.apartments} />}
+          />
+          <Route
+            path="/apartmentprotectedindex"
+            render={() => (
+              <ApartmentProtectedIndex
+                apartments={this.state.apartments}
+                {...this.props}
+              />
+            )}
+          />
+          <Route
             path="/apartmentshow/:id"
             render={(props) => {
               let id = +props.match.params.id;
@@ -84,10 +98,6 @@ export default class App extends Component {
               );
               return <ApartmentShow apartment={apartment} />;
             }}
-          />
-          <Route
-            path="/apartmentindex"
-            render={() => <ApartmentIndex apartments={this.state.apartments} />}
           />
         </Switch>
       </Router>
