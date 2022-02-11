@@ -22,7 +22,7 @@ export default class ApartmentIndex extends Component {
                     <li>State: {apartment.state}</li>
                     <li>Manager Name: {apartment.manager_name}</li>
                     <li>Manager Email: {apartment.manager_email}</li>
-                    <li>Monthly Rent: {apartment.monthly_rent}</li>
+                    <li>Monthly Rent: {`$${apartment.monthly_rent}`}</li>
                     <li>Bedrooms: {apartment.number_of_bedrooms}</li>
                     <li>Bathrooms: {apartment.number_of_bathrooms}</li>
                     <li>Pets: {apartment.allow_pets ? "Yes" : "No"}</li>

@@ -1,4 +1,5 @@
 import React from "react";
+import keyfinder from "../assets/keyfinder.svg";
 import {
   Collapse,
   Navbar,
@@ -33,21 +34,24 @@ export default class Example extends React.Component {
     } = this.props;
     return (
       <nav>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Apartment App</NavbarBrand>
+        <Navbar color="dark" dark expand="md">
+          <NavbarBrand href="/">
+            <img src={keyfinder} alt="Key Finder Logo" />
+            Apartment App
+          </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/apartmentindex">Listings</NavLink>
-              </NavItem>
               <NavItem>
                 {!logged_in && (
                   <NavLink href={sign_in_route}>Sign In/Register</NavLink>
                 )}
                 {logged_in && (
-                  <NavLink href={sign_out_route}>My Listings</NavLink> // placeholder href
+                  <NavLink href="/apartmentprotectedindex">My Listings</NavLink>
                 )}
+              </NavItem>
+              <NavItem>
+                <NavLink href="/apartmentindex">Listings</NavLink>
               </NavItem>
               <NavItem>
                 {logged_in && <NavLink href={sign_out_route}>Sign Out</NavLink>}
