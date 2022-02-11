@@ -241,3 +241,54 @@ end
 ```
 
 ### Protected Index
+
+```javascript
+// ApartmentProtectedIndex.js
+// filtered where `user_id` (Apartment foreign key) matches `current_user.id` (User primary key)
+<div className="Index">
+  {apartments
+    .filter((apartmentArray) => apartmentArray.user_id === current_user.id)
+    .map((apartment) => {
+      return (
+        <NavLink
+          to={`/apartmentshow/${apartment.id}`}
+          key={apartment.id}
+          style={{ textDecoration: "none" }}
+        >
+          <div className="Apartment Info">
+            <ul>
+              <li>Street: {apartment.street}</li>
+              <li>City: {apartment.city}</li>
+              <li>State: {apartment.state}</li>
+              <li>Manager Name: {apartment.manager_name}</li>
+              <li>Manager Email: {apartment.manager_email}</li>
+              <li>Monthly Rent: {`$${apartment.monthly_rent}`}</li>
+              <li>Bedrooms: {apartment.number_of_bedrooms}</li>
+              <li>Bathrooms: {apartment.number_of_bathrooms}</li>
+              <li>Pets: {apartment.allow_pets ? "Yes" : "No"}</li>
+              <li>User ID: {apartment.user_id}</li>
+            </ul>
+          </div>
+        </NavLink>
+      );
+    })}
+</div>
+```
+
+```javascript
+// App.js
+// Added route for ApartmentProtectedIndex, passing in apartments and all devise information
+import ApartmentProtectedIndex from "./pages/ApartmentProtectedIndex";
+//
+//
+//
+<Route
+  path="/apartmentprotectedindex"
+  render={() => (
+    <ApartmentProtectedIndex
+      apartments={this.state.apartments}
+      {...this.props}
+    />
+  )}
+/>
+```
